@@ -1,38 +1,47 @@
 package br.ufc.dc.poo.banco;
 
 import br.ufc.dc.poo.banco.contas.Conta;
-
+import br.ufc.dc.poo.banco.contas.ContaPoupanca;
 import java.util.Vector;
 
-public class Banco {
-    private Conta[] contas;
+public class BancoArray {
+    private Vector<Conta> contas;
+    private double taxa;
+    //private Conta[] contas;
     private int indice = 0;
-    public Banco(){
-        contas = new Conta[100];
+    public BancoArray(){
+        contas = new Vector<Conta>();
+        taxa = 0.01;
     }
     public void cadastrar(Conta conta){
-        contas[indice] = conta;
-        indice++;
+        if(procurar(conta.getNumero()) == null){
+            contas.add(conta);
+            indice++;
+        }else{
+            System.out.println("Nao foi possivel cadastrar");
+        }
+
     }
     private Conta procurar(String numero){
         int i = 0;
         boolean achou = false;
         while ((!achou) && (i < indice)) {
-            if (contas[i].getNumero().equals(numero)) {
+            if(contas.get(i).getNumero().equals(numero)){
                 achou = true;
             } else {
                 i++;
             }
+
         }
         if (achou == true) {
-            return contas[i];
+            return contas.get(i);
         } else {
             return null;
         }
     }
     
     public void debitar(String numero, double valor) {
-        Conta conta;
+        Conta conta;  //passagem por refência 
         conta = procurar(numero);
         if (conta != null) {
             conta.debitar(valor);
@@ -61,6 +70,13 @@ public class Banco {
             conta2.creditar(valor);
         }else{
             System.out.println("Conta Inexistente!");
+        }
+    }
+
+    public void renderJuros(String numero){
+        Conta  conta = procurar(numero);
+        if(conta != null && conta instanceof ContaPoupanca){
+            ((ContaPoupanca) conta).renderJuros(this.taxa);
         }
     }
 }
