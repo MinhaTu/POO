@@ -1,0 +1,47 @@
+public class Calculadora{
+	private double acumalador;
+
+	public Calculadora(){
+		acumalador = 0.0;
+	}
+
+	public double somar(double operandoA, double operandoB){
+		acumalador = operandoA + operandoB;
+		return acumulador;
+	}
+
+	public double somar(double operando){
+		return somar(acumalador,operando);
+	}
+
+	public double subtrair(double operandoA, double operandoB){
+		acumalador = operandoA - operandoB;
+		return acumulador;
+	}
+
+	public double subtrair(double operando){
+		return subtrair(acumalador,operando);
+	}
+
+	public double multiplicar(double operandoA, double operandoB){
+		acumalador = operandoA * operandoB;
+		return acumulador;
+	}
+
+	public double multiplicar(double operando){
+		return multiplicar(acumalador,operando);
+	}
+
+	public double dividir(double operandoA, double operandoB){
+		acumalador = operandoA/operandoB;
+		return acumulador;
+	}
+
+	public double dividir(double operando){
+		return dividir(acumalador,operando);
+	}
+	public getAcumulador(){
+		return acumalador;
+	}
+	
+}
