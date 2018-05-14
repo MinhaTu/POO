@@ -4,15 +4,15 @@ import br.ufc.dc.poo.banco.contas.*;
 import java.util.Vector;
 
 public class BancoArray {
-    private Vector<Conta> contas;
+    private Vector<ContaAbstrata> contas;
     private double taxa;
     //private Conta[] contas;
     private int indice = 0;
     public BancoArray(){
-        contas = new Vector<Conta>();
+        contas = new Vector<ContaAbstrata>();
         taxa = 0.01;
     }
-    public void cadastrar(Conta conta){
+    public void cadastrar(ContaAbstrata conta){
         if(procurar(conta.getNumero()) == null){
             contas.add(conta);
             indice++;
@@ -21,7 +21,7 @@ public class BancoArray {
         }
 
     }
-    private Conta procurar(String numero){
+    private ContaAbstrata procurar(String numero){
         int i = 0;
         boolean achou = false;
         while ((!achou) && (i < indice)) {
@@ -40,7 +40,7 @@ public class BancoArray {
     }
     
     public void debitar(String numero, double valor) {
-        Conta conta;  //passagem por refência 
+        ContaAbstrata conta;  //passagem por refência 
         conta = procurar(numero);
         if (conta != null) {
             conta.debitar(valor);
@@ -50,7 +50,7 @@ public class BancoArray {
     }
     
     public void creditar(String numero, double valor){
-        Conta conta;
+        ContaAbstrata conta;
         conta = procurar(numero);
         if(conta != null){
             conta.creditar(valor);
@@ -60,8 +60,8 @@ public class BancoArray {
     }
     
     public void transferir(String numero1, String numero2, double valor){
-        Conta conta1;
-        Conta conta2;
+        ContaAbstrata conta1;
+        ContaAbstrata conta2;
         conta1 = procurar(numero1);
         conta2 = procurar(numero2);
         if(conta1 != null && conta2 != null){
@@ -73,14 +73,14 @@ public class BancoArray {
     }
 
     public void renderJuros(String numero){
-        Conta  conta = procurar(numero);
+        ContaAbstrata  conta = procurar(numero);
         if(conta != null && conta instanceof ContaPoupanca){
             ((ContaPoupanca) conta).renderJuros(this.taxa);
         }
     }
 
     public void renderBonus(String numero){
-        Conta conta = procurar(numero);
+        ContaAbstrata conta = procurar(numero);
         if(conta != null && conta instanceof ContaEspecial){
             ((ContaEspecial) conta).renderBonus();
         }else{

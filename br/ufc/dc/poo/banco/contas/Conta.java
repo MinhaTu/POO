@@ -1,26 +1,13 @@
 package br.ufc.dc.poo.banco.contas;
 
-public class Conta{
-	private String numero;
-	private double saldo;
-	public Conta(String numero){
-		this.numero = numero;
-		this.saldo = 0;
-	}
+public class Conta extends ContaAbstrata{
 
-	public void creditar(double valor){
-		saldo += valor;
+	public Conta(String numero){
+		super(numero);
 	}
 
 	public void debitar(double valor){
 		saldo -= valor;
 	}
 
-	public String getNumero(){
-		return numero;
-	}
-
-	public double getSaldo(){
-		return saldo;
-	}
 }
