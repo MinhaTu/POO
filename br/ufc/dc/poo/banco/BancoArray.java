@@ -3,7 +3,7 @@ package br.ufc.dc.poo.banco;
 import br.ufc.dc.poo.banco.contas.*;
 import java.util.Vector;
 
-public class BancoArray {
+public class BancoArray implements IBanco{
     private Vector<ContaAbstrata> contas;
     private double taxa;
     //private Conta[] contas;
@@ -12,6 +12,21 @@ public class BancoArray {
         contas = new Vector<ContaAbstrata>();
         taxa = 0.01;
     }
+
+    public double saldoTotal(){
+        double saldoTotal = 0;
+        ContaAbstrata conta;
+        for (int i = 0;i < contas.size();i++){
+            conta = contas.get(i);
+            saldoTotal += conta.getSaldo();    
+        }
+        return saldoTotal;
+    }
+
+    public int numeroContas(){
+        return contas.size();
+    }   
+
     public void cadastrar(ContaAbstrata conta){
         if(procurar(conta.getNumero()) == null){
             contas.add(conta);
@@ -19,9 +34,8 @@ public class BancoArray {
         }else{
             System.out.println("Nao foi possivel cadastrar");
         }
-
     }
-    private ContaAbstrata procurar(String numero){
+    public ContaAbstrata procurar(String numero){
         int i = 0;
         boolean achou = false;
         while ((!achou) && (i < indice)) {
@@ -58,7 +72,16 @@ public class BancoArray {
             System.out.println("Conta Inexistente!");
         }
     }
-    
+
+    public double saldo(String numero){
+        ContaAbstrata conta;
+        conta = procurar(numero);
+        if(conta != null){
+            return conta.getSaldo();
+        }else{
+            System.out.println("Conta Inexistente!");
+        }
+    }    
     public void transferir(String numero1, String numero2, double valor){
         ContaAbstrata conta1;
         ContaAbstrata conta2;
